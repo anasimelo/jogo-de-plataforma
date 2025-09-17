@@ -25,8 +25,8 @@
 	moviVertical = teclaCima or setaCima or barraEspaco
 	
 	//colisão abaixo
-	if place_meeting(x,y + velocidadeVertical ,objChao) and velocidadeVertical >0  {
-		while ! place_meeting(x,y + sign(velocidadeVertical) ,objChao) and velocidadeVertical >0{
+	if place_meeting(x,y + velocidadeVertical ,objColisao) and velocidadeVertical >0  {
+		while ! place_meeting(x,y + sign(velocidadeVertical) ,objColisao) and velocidadeVertical >0{
 			y +=sign(velocidadeVertical)
 		}
 		velocidadeVertical = 0
@@ -34,8 +34,8 @@
 	
 	
 	//Colisão para direita e esquerda
-	if place_meeting(x + velocidadeHorizontal,y,objChao){
-		while ! place_meeting(x + sign(velocidadeHorizontal),y,objChao){
+	if place_meeting(x + velocidadeHorizontal,y,objColisao){
+		while ! place_meeting(x + sign(velocidadeHorizontal),y,objColisao){
 		 x+= sign(velocidadeHorizontal)
 		}
 		velocidadeHorizontal = 0
@@ -44,7 +44,7 @@
 	x += velocidadeHorizontal
 	y += velocidadeVertical
 	
-	if place_meeting(x,y + 1 ,objChao) and moviVertical{
+	if place_meeting(x,y + 1 ,objColisao) and moviVertical{
 		velocidadeVertical-= 16
 	}
 	
@@ -56,6 +56,29 @@
 		image_xscale *= -1
 	}
 #endregion
+		
+#region Colisão Inimigos
+	//Primeiro checar se a colisão foi emcima
+	//senão,mata o player
+
+	if place_meeting(x,y + 10, objInimigo){
+		identificador = instance_place(x,y + 10,objInimigo)
+		instance_destroy(identificador)
+		global.pontos += 5
+	}
+	else if place_meeting(x,y, objInimigo){
+		global.vidas--
+		room_restart()
+	}
+	
+	#endregion
+		
+		
+		
+		
+		
+		
+		
 		
 		#region Controle da vida
 	
