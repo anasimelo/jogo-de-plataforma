@@ -1,0 +1,1 @@
+mensagem = "jogo pausado"

@@ -1,0 +1,1 @@
+global.numFase = 0
